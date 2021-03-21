@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -33,7 +36,14 @@ public class Main {
     }
 
     private static void maxFlow(){
-
+        ArrayList<List<String>> data = new ArrayList<>();
+        parser parser = new parser();
+        try {
+            data = parser.readFile("src/resources/bridge_1.txt");
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(data);
     }
 
     private static void displayFlowGraph(){

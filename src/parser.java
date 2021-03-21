@@ -1,21 +1,30 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class parser {
 
 
-    public List<Integer> readFile(String fileName) throws IOException {
+    public ArrayList<List<String>> readFile(String fileName) throws IOException {
         File file = new File(fileName);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
 
-        List<Integer> fileData = new ArrayList<>();
+        ArrayList<List<String>> fileData = new ArrayList<>();
 
         String line;
 
-        while((line = br.readLine())!= null){fileData.add(Integer.parseInt(line));}
-        return fileData;
+        while((line = br.readLine())!= null) {
+            String[] numbers = line.split(" ");
+            fileData.add(Arrays.asList(numbers));
+        }
+        for(List<String> item : fileData){
+            System.out.println(item);
+        }
+       return fileData;
     }
+
+
 
 }
