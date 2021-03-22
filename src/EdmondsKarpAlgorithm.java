@@ -5,15 +5,15 @@ import java.util.Queue;
 
 public class EdmondsKarpAlgorithm{
 
-    private List<Edge>[] flowGraph;
+    private List<Edge> flowGraph[];
     private int numberOfNodes;
 
     public EdmondsKarpAlgorithm(ArrayList<List<String>>  fileData){
         numberOfNodes = Integer.parseInt(fileData.remove(0).get(0));
-        flowGraph = new List[numberOfNodes];
+        flowGraph = new LinkedList[numberOfNodes];
 
         for (int i = 0; i < numberOfNodes; i++) {
-            flowGraph[i] = new ArrayList<>();
+            flowGraph[i] = new LinkedList<>();
         }
 
         for(List<String> item : fileData){
@@ -21,10 +21,11 @@ public class EdmondsKarpAlgorithm{
         }
 
         System.out.println(flowGraph);
-        for(List<Edge> item:flowGraph){
-            for (Edge edge : item){
+        for(int i=0;i<flowGraph.length;i++){
+            System.out.println(i+"=>"+flowGraph[i]);
+/*            for (Edge edge : item){
                 System.out.println(edge.getStartNode()+" " + edge.getEndNode() +" " + edge.getFlowCapacity());
-            }
+            }*/
         }
         /*
         for (int i = 0; i < numberOfNodes; i++) {
@@ -34,20 +35,37 @@ public class EdmondsKarpAlgorithm{
         }*/
     }
 
-    private void BreadthFirstSearch(int source,int sink){
+    private Edge[] BreadthFirstSearch(int numberOfNodes,int source,int sink){
         Queue<Integer> queue = new LinkedList<>();
         List<Integer> visitedNodes = new ArrayList<>();
+        Edge[] path = new Edge[numberOfNodes];
 
         visitedNodes.add(source);
         queue.add(source);
         while(!queue.isEmpty()){
             int node = queue.poll();
-            if (source == node){return;}
+            if (node == sink){return path;}
+
+            for (Edge edge : flowGraph[node]){
+                if (visitStatus(visitedNodes,node) && edge.availableFlow() > 0){
+                    queue.add(edge.getEndNode());
+                    visitedNodes.add(edge.getEndNode());
+                    path[edge.getEndNode()] = edge;
+                }
+            }
         }
+        return path;
     }
 
     private void addEdge(int startNode,int endNode,int flowCapacity){
-        Edge edge = new Edge(startNode,endNode,flowCapacity);
+        Edge edge = new Edge(endNode,flowCapacity);
         flowGraph[startNode].add(edge);
+    }
+
+    private boolean visitStatus(List<Integer> visitedNodes ,int node){
+        for (int visitedNode:visitedNodes){
+            if (visitedNode == node){return true;}
+        }
+        return false;
     }
 }
