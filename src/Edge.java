@@ -5,10 +5,23 @@ public class Edge {
     private int currentFlow;
     private int flowCapacity;
 
-    public Edge(int endNode,int flowCapacity){
-        //this.startNode = startNode;
+    public Edge(int startNode,int endNode,int flowCapacity){
+        this.startNode = startNode;
         this.endNode = endNode;
         this.flowCapacity = flowCapacity;
+        this.currentFlow=0;
+    }
+
+    public void setCurrentFlow(int currentFlow) {
+        this.currentFlow = currentFlow;
+    }
+
+    public void setFlowCapacity(int flowCapacity) {
+        this.flowCapacity = flowCapacity;
+    }
+
+    public int getCurrentFlow() {
+        return currentFlow;
     }
 
     public int getStartNode() {

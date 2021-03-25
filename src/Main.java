@@ -44,6 +44,8 @@ public class Main {
             exception.printStackTrace();
         }
         EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(data);
+        int maxFlow =  ed.RunEdmondsKarp(1,5);
+        System.out.println(maxFlow);
     }
 
     private static void displayFlowGraph(){
