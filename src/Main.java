@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,16 @@ public class Main {
     private static void menu(){
         Scanner scanner = new Scanner(System.in);
 
+        File file = new File("src/resources");
+        String[] fileArray = file.list();
+        for (int i =0; i < fileArray.length;i++){
+            System.out.println(i+1 + ". "+ fileArray[i]);
+        }
+        System.out.println("Select a graph data set from above files");
+        System.out.print("Please enter the file number: ");
+        int fileNumber = Integer.parseInt(scanner.nextLine());
+        String fileName = "src/resources/" + fileArray[fileNumber-1];
+        //System.out.println(fileName);
         while (true) {
             System.out.println("-----------------------------------------------");
             System.out.println("Please Enter Your Choice:");
@@ -19,9 +30,10 @@ public class Main {
             System.out.println("0. To Exit The Menu");
             System.out.print("Enter your selection: ");
             String userInput = scanner.nextLine();
+            if (userInput == "1"){}
             switch (userInput) {
                 case "1":
-                    maxFlow();
+                    maxFlow(fileName);
                     break;
                 case "2":
                     displayFlowGraph();
@@ -35,16 +47,34 @@ public class Main {
         }
     }
 
-    private static void maxFlow(){
+    private static void maxFlow(String filename){
+        Scanner scanner = new Scanner(System.in);
+        int source = -1;
+        int sink = -1;
+        boolean isInputCorrect = false;
+        do {
+            System.out.println("Enter Source Node : ");
+            String sourceInput = scanner.nextLine();
+            System.out.println("Enter Sink Node : ");
+            String sinkInput = scanner.nextLine();
+            try {
+                source = Integer.parseInt(sourceInput);
+                sink = Integer.parseInt(sinkInput);
+                if (sink == source){ System.out.println("Source and Sink can't be same");}
+                else{isInputCorrect = true;}
+            }catch (NumberFormatException exception){ System.out.println("Source and Sink has to be Integers");}
+        }while(!isInputCorrect);
+
         ArrayList<List<String>> data = new ArrayList<>();
         parser parser = new parser();
         try {
-            data = parser.readFile("src/resources/bridge_1.txt");
+            System.out.println(filename);
+            data = parser.readFile(filename);
         } catch (IOException exception) {
-            exception.printStackTrace();
+            System.out.println("File Not Found");
         }
         EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(data);
-        int maxFlow =  ed.RunEdmondsKarp(1,5);
+        int maxFlow =  ed.RunEdmondsKarp(source,sink);
         System.out.println(maxFlow);
     }
 

@@ -92,7 +92,7 @@ public class EdmondsKarpAlgorithm{
         queue.add(source);
         while(!queue.isEmpty()){
             int node = queue.poll();
-            System.out.println("node " + node);
+            //System.out.println("node " + node);
             if (node == sink){return visitedEdges;}
 
             for (Edge edge : flowGraph[node]){
