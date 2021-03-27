@@ -20,7 +20,7 @@ public class parser {
             fileData.add(Arrays.asList(numbers));
         }
         for(List<String> item : fileData){
-            System.out.println(item);
+            //System.out.println(item);
         }
        return fileData;
     }
