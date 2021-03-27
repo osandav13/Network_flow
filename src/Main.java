@@ -74,7 +74,9 @@ public class Main {
         } catch (IOException exception) {
             System.out.println("File Not Found");
         }
-        EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(data);
+        int numberOfNodes = Integer.parseInt(data.remove(0).get(0));
+        Graph graph = new Graph(data,numberOfNodes);
+        EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(graph,numberOfNodes);
         long start = System.nanoTime();
         int maxFlow =  ed.RunEdmondsKarp();
         long finish = System.nanoTime();

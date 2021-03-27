@@ -5,26 +5,18 @@ import java.util.Queue;
 
 public class EdmondsKarpAlgorithm{
 
-    private List<Edge> flowGraph[];
+    private List<Edge>[] flowGraph;
     private final int numberOfNodes;
     private final int source;
     private final int sink;
 
 
-    public EdmondsKarpAlgorithm(ArrayList<List<String>> fileData){
-        numberOfNodes = Integer.parseInt(fileData.remove(0).get(0));
-        flowGraph = new LinkedList[numberOfNodes];
-        source = numberOfNodes - numberOfNodes;
+    public EdmondsKarpAlgorithm(Graph graph,int numberOfNodes){
+        flowGraph = graph.getGraph();
+        this.numberOfNodes = numberOfNodes;
+        source = 0;
         sink = numberOfNodes -1;
 
-
-        for (int i = 0; i < numberOfNodes; i++) {
-            flowGraph[i] = new LinkedList<>();
-        }
-
-        for(List<String> item : fileData){
-            addEdge(Integer.parseInt(item.get(0)),Integer.parseInt(item.get(1)),Integer.parseInt(item.get(2)));
-        }
 
 /*        System.out.println(flowGraph);
         for(int i=0;i<flowGraph.length;i++) {
@@ -64,19 +56,16 @@ public class EdmondsKarpAlgorithm{
 
             }*/
 
-
-            //for (Edge edge = visitedEdges[sinkEdgeIndex]{
-
             if (visitedEdges[sink] == null){break;}
+            System.out.print(sink);
             for (Edge edge = visitedEdges[sink];edge!=null;edge=visitedEdges[edge.getStartNode()]){
+                System.out.print(" -> "+edge.getStartNode());
                 //System.out.println("botle "+ bottleNeck  +  "start node "+edge.getStartNode());
                 //if (edge.getStartNode()== source){break;}
                 bottleNeck = Math.min(edge.availableFlow(),bottleNeck);
-                /*if (edge.availableFlow() < bottleNeck){
-                    //System.out.println("hola");
-                    bottleNeck = edge.availableFlow();}*/
             }
-            System.out.println("path flow: " + bottleNeck);
+            System.out.print("\n");
+            System.out.println("Path Flow: " + bottleNeck);
             if (bottleNeck == 0){break;}
             for (Edge edge = visitedEdges[sink];edge !=null;edge = visitedEdges[edge.getStartNode()]){
                 //System.out.println("i am here");
@@ -87,7 +76,7 @@ public class EdmondsKarpAlgorithm{
                 //edge.setFlowCapacity(adjustedCapacity);
             }
             maxFlow +=bottleNeck;
-            System.out.println("current maxflow of graph: " + maxFlow);
+            System.out.println("Current Max Flow Of Graph: " + maxFlow);
         }
         return maxFlow;
     }
@@ -114,10 +103,6 @@ public class EdmondsKarpAlgorithm{
         return visitedEdges;
     }
 
-    private void addEdge(int startNode,int endNode,int flowCapacity){
-        Edge edge = new Edge(startNode,endNode,flowCapacity);
-        flowGraph[startNode].add(edge);
-    }
 
     private boolean visitStatus(List<Integer> visitedNodes ,Edge edge){
         for (int visitedNode:visitedNodes){
