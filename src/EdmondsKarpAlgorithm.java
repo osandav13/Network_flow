@@ -57,26 +57,22 @@ public class EdmondsKarpAlgorithm{
             }*/
 
             if (visitedEdges[sink] == null){break;}
-            System.out.print(sink);
+            //System.out.print(sink);
             for (Edge edge = visitedEdges[sink];edge!=null;edge=visitedEdges[edge.getStartNode()]){
-                System.out.print(" -> "+edge.getStartNode());
+                //System.out.print(" -> "+edge.getStartNode());
                 //System.out.println("botle "+ bottleNeck  +  "start node "+edge.getStartNode());
                 //if (edge.getStartNode()== source){break;}
                 bottleNeck = Math.min(edge.availableFlow(),bottleNeck);
             }
-            System.out.print("\n");
-            System.out.println("Path Flow: " + bottleNeck);
+            //System.out.print("\n");
+            //System.out.println("Path Flow: " + bottleNeck);
             if (bottleNeck == 0){break;}
             for (Edge edge = visitedEdges[sink];edge !=null;edge = visitedEdges[edge.getStartNode()]){
-                //System.out.println("i am here");
                 int adjustedFlow = edge.getCurrentFlow() + bottleNeck;
-               // int adjustedCapacity = edge.getFlowCapacity() - bottleNeck;
-
                 edge.setCurrentFlow(adjustedFlow);
-                //edge.setFlowCapacity(adjustedCapacity);
             }
             maxFlow +=bottleNeck;
-            System.out.println("Current Max Flow Of Graph: " + maxFlow);
+            //System.out.println("Current Max Flow Of Graph: " + maxFlow);
         }
         return maxFlow;
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    private static Graph graph;
     public static void main(String[] args) {
         menu();
     }
@@ -75,16 +76,19 @@ public class Main {
             System.out.println("File Not Found");
         }
         int numberOfNodes = Integer.parseInt(data.remove(0).get(0));
-        Graph graph = new Graph(data,numberOfNodes);
+        graph = new Graph(data,numberOfNodes);
         EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(graph,numberOfNodes);
         long start = System.nanoTime();
         int maxFlow =  ed.RunEdmondsKarp();
         long finish = System.nanoTime();
-        System.out.println(maxFlow);
+        System.out.println("Max Flow is: " + maxFlow);
         System.out.println(finish-start + " nanoseconds");
     }
 
     private static void displayFlowGraph(){
-
+        //System.out.println(graph.getGraph());
+        for (int i=0;i<graph.getGraph().length;i++){
+            System.out.println(i + " => " + graph.getGraph()[i]);
+        }
     }
 }

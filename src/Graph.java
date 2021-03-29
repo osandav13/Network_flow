@@ -8,9 +8,9 @@ public class Graph {
     private List<Edge>[] graph;
 
     public Graph(ArrayList<List<String>> fileData,int numberOfNodes) {
-        graph = new LinkedList[numberOfNodes];
+        graph = new ArrayList[numberOfNodes];
         for (int i = 0; i < numberOfNodes; i++) {
-            graph[i] = new LinkedList<>();
+            graph[i] = new ArrayList<>();
         }
 
         for(List<String> item : fileData){
@@ -27,4 +27,14 @@ public class Graph {
     private void addEdge(Edge edge) {
         graph[edge.getStartNode()].add(edge);
     }
+
+/*    @Override
+    public String toString(){
+        for(int i=0;i<graph.length;i++) {
+            System.out.println(i + "=>" + graph[i]);
+            *//*for (Edge edge : item){
+            System.out.println(edge.getStartNode()+" " + edge.getEndNode() +" " + edge.getFlowCapacity());
+            }*//*
+        }
+    }*/
 }
