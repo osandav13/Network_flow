@@ -11,20 +11,11 @@ public class EdmondsKarpAlgorithm{
     private final int sink;
 
 
-    public EdmondsKarpAlgorithm(Graph graph,int numberOfNodes){
+    public EdmondsKarpAlgorithm(Graph graph,int numberOfNodes,int source,int sink){
         flowGraph = graph.getGraph();
         this.numberOfNodes = numberOfNodes;
-        source = 0;
-        sink = numberOfNodes -1;
-
-
-/*        System.out.println(flowGraph);
-        for(int i=0;i<flowGraph.length;i++) {
-            System.out.println(i + "=>" + flowGraph[i]);
-*//*            for (Edge edge : item){
-                System.out.println(edge.getStartNode()+" " + edge.getEndNode() +" " + edge.getFlowCapacity());
-            }*//*
-        }*/
+        this.source = source;
+        this.sink = sink;
     }
 
     public int RunEdmondsKarp(){

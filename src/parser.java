@@ -19,12 +19,7 @@ public class parser {
             String[] numbers = line.split(" ");
             fileData.add(Arrays.asList(numbers));
         }
-        for(List<String> item : fileData){
-            //System.out.println(item);
-        }
        return fileData;
     }
-
-
 
 }
