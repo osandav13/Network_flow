@@ -44,7 +44,6 @@ public class Main {
             System.out.println("0. To Exit The Menu");
             System.out.print("Enter your selection: ");
             String userInput = scanner.nextLine();
-            if (userInput == "1"){}
             switch (userInput) {
                 case "1":
                     changeSourceAndSink();

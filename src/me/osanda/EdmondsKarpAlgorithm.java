@@ -12,47 +12,46 @@ import java.util.Queue;
  */
 public class EdmondsKarpAlgorithm{
 
-    private Graph flowGraph; //List<me.osanda.Edge>[] ;
-    //private final int numberOfNodes;
-    //private final int source;
-    //private final int sink;
-
+    private Graph flowGraph;
 
     public EdmondsKarpAlgorithm(Graph graph){
         flowGraph = graph;
-        //this.numberOfNodes = numberOfNodes;
-        //this.source = source;
-        //this.sink = sink;
-        //System.out.println(source + " " + sink);
     }
 
     /**
+     * max flow is calculated according to edmondsKarp
+     * algorithm
      *
-     * @return
+     * @return max flow of the flow graph
      */
     public int RunEdmondsKarp(){
+        // At the start of the algorithm max flow is set as zero
         int maxFlow = 0;
+        // Infinite loop is run until bfs return a path with bottleneck
+        // value of zero or if the provided path by bfs didnt reach the
+        // sink node.
         while(true){
-            //System.out.println("hi");
             int bottleNeck = Integer.MAX_VALUE;
-            List<Edge> path = new ArrayList<>();
-            //List<me.osanda.Edge> visitedEdges = BreadthFirstSearch(numberOfNodes, source, sink);
+            // Bfs returns the visited edges array to visitedEdges
             Edge[] visitedEdges = BreadthFirstSearch(flowGraph.getNumberOfNodes(),flowGraph.getSource(),flowGraph.getSink());
 
             if (visitedEdges[flowGraph.getSink()] == null){break;}
             System.out.print(flowGraph.getSink());
+            // Below loop run to recreate the path from visitedEdges and print it
             for (Edge edge = visitedEdges[flowGraph.getSink()];edge!=null;edge=visitedEdges[edge.getStartNode()]){
                 System.out.print(" -> "+edge.getStartNode());
-                //if (edge.getStartNode()== source){break;}
                 bottleNeck = Math.min(edge.availableFlow(),bottleNeck);
             }
             System.out.print("\n");
             System.out.println("Path Flow: " + bottleNeck);
+            // If the bottle neck is not 0 then the path can be augmented
             if (bottleNeck == 0){break;}
+            // Path is augmented and flow rates are adjusted to in the edges of the path
             for (Edge edge = visitedEdges[flowGraph.getSink()];edge !=null;edge = visitedEdges[edge.getStartNode()]){
                 int adjustedFlow = edge.getCurrentFlow() + bottleNeck;
                 edge.setCurrentFlow(adjustedFlow);
             }
+            // After each augmentation bottleneck value is added to max flow
             maxFlow +=bottleNeck;
             System.out.println("Current Max Flow : " + maxFlow);
         }
@@ -60,6 +59,9 @@ public class EdmondsKarpAlgorithm{
     }
 
     /**
+     * Normal breadth first search with a return value of
+     * the edges visited by the algorithm. bfs is used to find
+     * the shortest path through the flow graph
      *
      * @param numberOfNodes number of node in the graph
      * @param source source node of the graph
@@ -67,17 +69,23 @@ public class EdmondsKarpAlgorithm{
      * @return The visited edge object array
      */
     private Edge[] BreadthFirstSearch(int numberOfNodes,int source,int sink){
-        Queue<Integer> queue = new LinkedList<>();
-        List<Integer> visitedNodes = new ArrayList<>();
-        Edge[] visitedEdges = new Edge[numberOfNodes];
+        Queue<Integer> queue = new LinkedList<>(); // queue is used to find the next exploring node
+        List<Integer> visitedNodes = new ArrayList<>(); // keep track of visited nodes by bfs
+        Edge[] visitedEdges = new Edge[numberOfNodes];// keep track of visited edge to reconstruct the path
 
         visitedNodes.add(source);
         queue.add(source);
-        while(!queue.isEmpty()){
-            int node = queue.poll();
-            if (node == sink){return visitedEdges;}
 
+        // loop through the queue until its empty
+        while(!queue.isEmpty()){
+            // first element from queue is removed to start the exploring
+            int node = queue.poll();
+            // if he node equal to sink exploration of the graph stopped
+            if (node == sink){return visitedEdges;}
+            // all the connected edges are explored to find a path to sink
             for (Edge edge : flowGraph.getGraph()[node]){
+                // if the edge is not previously explored and flow is bigger than 0
+                // that edge is added to queue for exploration
                 if (!visitStatus(visitedNodes,edge) && edge.availableFlow() > 0){
                     queue.add(edge.getEndNode());
                     visitedNodes.add(edge.getEndNode());
@@ -88,7 +96,14 @@ public class EdmondsKarpAlgorithm{
         return visitedEdges;
     }
 
-
+    /**
+     * This Internal method used to find if a edge has
+     * been previously visited by bfs
+     *
+     * @param visitedNodes list of nodes
+     * @param edge Edge object
+     * @return boolean is returned
+     */
     private boolean visitStatus(List<Integer> visitedNodes ,Edge edge){
         for (int visitedNode:visitedNodes){
             if (visitedNode == edge.getEndNode()){return true;}
