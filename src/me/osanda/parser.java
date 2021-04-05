@@ -1,8 +1,15 @@
+package me.osanda;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  Name : Osanda Ginige
+ *  UoW id : w1761754
+ *  IIT id : 2018181
+ */
 public class parser {
 
 

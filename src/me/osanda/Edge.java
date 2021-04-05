@@ -1,3 +1,11 @@
+package me.osanda;
+
+/**
+ *  Name : Osanda Ginige
+ *  UoW id : w1761754
+ *  IIT id : 2018181
+ */
+
 public class Edge {
 
     private int startNode;
@@ -16,10 +24,6 @@ public class Edge {
         this.currentFlow = currentFlow;
     }
 
-    public void setFlowCapacity(int flowCapacity) {
-        this.flowCapacity = flowCapacity;
-    }
-
     public int getCurrentFlow() {
         return currentFlow;
     }
@@ -30,10 +34,6 @@ public class Edge {
 
     public int getEndNode() {
         return endNode;
-    }
-
-    public int getFlowCapacity() {
-        return flowCapacity;
     }
 
     @Override
