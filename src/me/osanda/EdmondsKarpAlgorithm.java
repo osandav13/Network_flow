@@ -19,10 +19,10 @@ public class EdmondsKarpAlgorithm{
     }
 
     /**
-     * max flow is calculated according to edmondsKarp
+     * Max flow is calculated according to edmondsKarp
      * algorithm
      *
-     * @return max flow of the flow graph
+     * @return Max flow of the flow graph
      */
     public int RunEdmondsKarp(){
         // At the start of the algorithm max flow is set as zero
@@ -60,31 +60,31 @@ public class EdmondsKarpAlgorithm{
 
     /**
      * Normal breadth first search with a return value of
-     * the edges visited by the algorithm. bfs is used to find
+     * the edges visited by the algorithm. Bfs is used to find
      * the shortest path through the flow graph
      *
-     * @param numberOfNodes number of node in the graph
-     * @param source source node of the graph
-     * @param sink sink node of the graph
+     * @param numberOfNodes Number of node in the graph
+     * @param source Source node of the graph
+     * @param sink Sink node of the graph
      * @return The visited edge object array
      */
     private Edge[] BreadthFirstSearch(int numberOfNodes,int source,int sink){
-        Queue<Integer> queue = new LinkedList<>(); // queue is used to find the next exploring node
-        List<Integer> visitedNodes = new ArrayList<>(); // keep track of visited nodes by bfs
-        Edge[] visitedEdges = new Edge[numberOfNodes];// keep track of visited edge to reconstruct the path
+        Queue<Integer> queue = new LinkedList<>(); // Queue is used to find the next exploring node
+        List<Integer> visitedNodes = new ArrayList<>(); // Keep track of visited nodes by bfs
+        Edge[] visitedEdges = new Edge[numberOfNodes];// Keep track of visited edge to reconstruct the path
 
         visitedNodes.add(source);
         queue.add(source);
 
-        // loop through the queue until its empty
+        // Loop through the queue until its empty
         while(!queue.isEmpty()){
-            // first element from queue is removed to start the exploring
+            // First element from queue is removed to start the exploring
             int node = queue.poll();
-            // if he node equal to sink exploration of the graph stopped
+            // If he node equal to sink exploration of the graph stopped
             if (node == sink){return visitedEdges;}
-            // all the connected edges are explored to find a path to sink
+            // All the connected edges are explored to find a path to sink
             for (Edge edge : flowGraph.getGraph()[node]){
-                // if the edge is not previously explored and flow is bigger than 0
+                // If the edge is not previously explored and flow is bigger than 0
                 // that edge is added to queue for exploration
                 if (!visitStatus(visitedNodes,edge) && edge.availableFlow() > 0){
                     queue.add(edge.getEndNode());
@@ -102,7 +102,7 @@ public class EdmondsKarpAlgorithm{
      *
      * @param visitedNodes list of nodes
      * @param edge Edge object
-     * @return boolean is returned
+     * @return Boolean is returned
      */
     private boolean visitStatus(List<Integer> visitedNodes ,Edge edge){
         for (int visitedNode:visitedNodes){

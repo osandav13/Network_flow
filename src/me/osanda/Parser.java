@@ -10,18 +10,25 @@ import java.util.List;
  *  UoW id : w1761754
  *  IIT id : 2018181
  */
-public class parser {
+public class Parser {
 
-
+    /**
+     *
+     * @param fileName Name of the text file
+     * @return Each file line as string
+     * @throws IOException
+     */
     public ArrayList<List<String>> readFile(String fileName) throws IOException {
         File file = new File(fileName);
         FileReader fr = new FileReader(file);
+        // Buffer reader is used to read the files faster
         BufferedReader br = new BufferedReader(fr);
 
         ArrayList<List<String>> fileData = new ArrayList<>();
 
         String line;
-
+        // Each file line is stored in a list and added to a arrayList
+        // Storing data this way is makes it easier to access it later
         while((line = br.readLine())!= null) {
             String[] numbers = line.split(" ");
             fileData.add(Arrays.asList(numbers));

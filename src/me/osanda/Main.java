@@ -14,9 +14,6 @@ import java.util.Scanner;
 public class Main {
     private static Graph graph;
     private static ArrayList<List<String>> data = new ArrayList<>();
-    //private static int numberOfNodes = 0;
-    //private static int source = -1;
-    //private static int sink = -1;
     public static void main(String[] args) {
         menu();
     }
@@ -103,7 +100,7 @@ public class Main {
 
     private static ArrayList<List<String>> parseData(String filename){
 
-        parser parser = new parser();
+        Parser parser = new Parser();
         try {
             System.out.println(filename);
             data = parser.readFile(filename);

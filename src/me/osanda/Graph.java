@@ -10,19 +10,19 @@ import java.util.List;
  */
 public class Graph {
     private List<Edge>[] graph; // Adjacency List
-    private int numberOfNodes = 0; // number of nodes in the graph
-    private int source = -1;// source node location
-    private int sink = -1; // sink node location
+    private int numberOfNodes = 0; // Number of nodes in the graph
+    private int source = -1;// Source node location
+    private int sink = -1; // Sink node location
 
     /**
      * This constructor created the flow graph to be used
      * by the edmondsKarp algorithm. adjacency List is used
      * as the data structure created using a array of Array lists
      *
-     * @param fileData data read from the text files in the resources
-     * @param source source node
-     * @param sink sink node
-     * @param numberOfNodes number of nodes in the flow graph
+     * @param fileData Data read from the text files in the resources
+     * @param source Source node
+     * @param sink Sink node
+     * @param numberOfNodes Number of nodes in the flow graph
      */
     public Graph(ArrayList<List<String>> fileData,int source,int sink,int numberOfNodes) {
         this.source = source;
