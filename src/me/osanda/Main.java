@@ -95,7 +95,8 @@ public class Main {
         System.out.println("-------------------------");
         System.out.println("* Max Flow Of Graph: " + maxFlow + " *");
         System.out.println("-------------------------");
-        System.out.println(finish-start + " nanoseconds");
+        Long value = finish-start;
+        System.out.println( "Execution time :- " + value + " Nanoseconds");
     }
 
     private static ArrayList<List<String>> parseData(String filename){

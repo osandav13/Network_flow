@@ -31,19 +31,31 @@ public class EdmondsKarpAlgorithm{
         // value of zero or if the provided path by bfs didnt reach the
         // sink node.
         while(true){
+            ArrayList<Integer> displayPath = new ArrayList();
             int bottleNeck = Integer.MAX_VALUE;
             // Bfs returns the visited edges array to visitedEdges
             Edge[] visitedEdges = BreadthFirstSearch(flowGraph.getNumberOfNodes(),flowGraph.getSource(),flowGraph.getSink());
 
             if (visitedEdges[flowGraph.getSink()] == null){break;}
-            System.out.print(flowGraph.getSink());
+            displayPath.add(flowGraph.getSink());
+            //System.out.print(flowGraph.getSink());
             // Below loop run to recreate the path from visitedEdges and print it
             for (Edge edge = visitedEdges[flowGraph.getSink()];edge!=null;edge=visitedEdges[edge.getStartNode()]){
-                System.out.print(" -> "+edge.getStartNode());
+                //System.out.print(" -> "+ edge.getStartNode());
+                displayPath.add(edge.getStartNode());
                 bottleNeck = Math.min(edge.availableFlow(),bottleNeck);
             }
-            System.out.print("\n");
-            System.out.println("Path Flow: " + bottleNeck);
+            System.out.println("**** Current Augmenting path ****");
+            System.out.print("+ ");
+            for (int i = displayPath.size()-1;  i >= 0;i--){
+                System.out.print(displayPath.get(i));
+                if (i != 0){
+                    System.out.print(" -> ");
+                }else {System.out.print("\n");}
+            }
+
+
+            System.out.println("+ Path Flow: " + bottleNeck);
             // If the bottle neck is not 0 then the path can be augmented
             if (bottleNeck == 0){break;}
             // Path is augmented and flow rates are adjusted to in the edges of the path
@@ -53,7 +65,8 @@ public class EdmondsKarpAlgorithm{
             }
             // After each augmentation bottleneck value is added to max flow
             maxFlow +=bottleNeck;
-            System.out.println("Current Max Flow : " + maxFlow);
+            System.out.println("+ Current Max Flow : " + maxFlow);
+            //System.out.println();
         }
         return maxFlow;
     }
