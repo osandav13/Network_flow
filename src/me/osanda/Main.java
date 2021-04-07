@@ -37,7 +37,8 @@ public class Main {
             System.out.println("1. Change Source and Sink Nodes");
             System.out.println("2. Calculate Maximum Flow");
             System.out.println("3. Add Edge");
-            System.out.println("4. Display Flow Graph");
+            System.out.println("4. Delete Edge");
+            System.out.println("5. Display Flow Graph");
             System.out.println("0. To Exit The Menu");
             System.out.print("Enter your selection: ");
             String userInput = scanner.nextLine();
@@ -52,6 +53,9 @@ public class Main {
                     addEdge();
                     break;
                 case "4":
+                    deleteEdge();
+                    break;
+                case "5":
                     displayFlowGraph();
                     break;
                 case "0":
@@ -85,7 +89,7 @@ public class Main {
 
     private static void maxFlow(){
         //graph = new me.osanda.Graph(data,numberOfNodes);
-        System.out.println("source is : " + graph.getSource() + " sink is: " + graph.getSink());
+        System.out.println("Source is : " + graph.getSource() + "  Sink is: " + graph.getSink());
         EdmondsKarpAlgorithm ed = new EdmondsKarpAlgorithm(graph);
         long start = System.nanoTime();
         System.out.println("-----------------------------------------------");
@@ -122,9 +126,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean isInputsCorrect= false;
         do {
-            System.out.print("Enter start Node : ");
+            System.out.print("Enter Start Node : ");
             String startInput = scanner.nextLine();
-            System.out.print("Enter Sink Node : ");
+            System.out.print("Enter End Node : ");
             String endInput = scanner.nextLine();
             System.out.print("Enter edge capacity : ");
             String capacityInput = scanner.nextLine();
@@ -145,6 +149,28 @@ public class Main {
     private static void displayFlowGraph(){
         for (int i=0;i<graph.getGraph().length;i++){
             System.out.println(i + " => " + graph.getGraph()[i]);
+        }
+    }
+
+    private static void deleteEdge(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the Start Node: ");
+        String startInput = scanner.nextLine();
+        System.out.print("Enter the End Node: ");
+        String endInput = scanner.nextLine();
+        int startNode = -1;
+        int endNode = -1;
+        try {
+            startNode = Integer.parseInt(startInput);
+            endNode = Integer.parseInt(endInput);
+            try {
+                Edge edge = graph.DeleteEdge(startNode,endNode);
+                System.out.println("This edge was removed {" + edge.getStartNode() + edge.getEndNode()+edge.getFlowCapacity() + "}");
+            } catch (Exception e) {
+                System.out.println("Given start node and end node are incorrect");
+            }
+        }catch (NumberFormatException exception){
+            System.out.println("Start and End nodes has to be Integers");
         }
     }
 }

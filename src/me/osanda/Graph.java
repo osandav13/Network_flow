@@ -9,7 +9,7 @@ import java.util.List;
  *  IIT id : 2018181
  */
 public class Graph {
-    private List<Edge>[] graph; // Adjacency List
+    private ArrayList<Edge>[] graph; // Adjacency List
     private int numberOfNodes = 0; // Number of nodes in the graph
     private int source = -1;// Source node location
     private int sink = -1; // Sink node location
@@ -38,6 +38,16 @@ public class Graph {
             addEdge(edge);
         }
 
+    }
+    public Edge DeleteEdge(int startNode, int endNode) throws Exception {
+         ArrayList<Edge> Edges = graph[startNode];
+         for (Edge edge: Edges){
+             if (edge.getEndNode() == endNode){
+                 graph[startNode].remove(edge);
+                 return edge;
+             }
+         }
+         throw new Exception();
     }
 
     public List<Edge>[] getGraph() {

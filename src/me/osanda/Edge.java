@@ -19,7 +19,9 @@ public class Edge {
         this.flowCapacity = flowCapacity;
         this.currentFlow=0;
     }
-
+    public int getFlowCapacity() {
+        return flowCapacity;
+    }
     public void setCurrentFlow(int currentFlow) {
         this.currentFlow = currentFlow;
     }
