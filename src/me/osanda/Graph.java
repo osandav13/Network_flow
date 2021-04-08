@@ -39,6 +39,15 @@ public class Graph {
         }
 
     }
+
+    /**
+     * Edge can be deleted given the start and the end node
+     *
+     * @param startNode Starting node of the edge
+     * @param endNode End node of the edge
+     * @return The edge that was deleted
+     * @throws Exception Raised if the start node or end node is incorrect
+     */
     public Edge DeleteEdge(int startNode, int endNode) throws Exception {
          ArrayList<Edge> Edges = graph[startNode];
          for (Edge edge: Edges){
@@ -50,12 +59,16 @@ public class Graph {
          throw new Exception();
     }
 
-    public List<Edge>[] getGraph() {
-        return graph;
-    }
-
+    /**
+     *
+     * @param edge Edge object that needs to be added to the graph
+     */
     public void addEdge(Edge edge) {
         graph[edge.getStartNode()].add(edge);
+    }
+
+    public List<Edge>[] getGraph() {
+        return graph;
     }
 
     public int getNumberOfNodes() {

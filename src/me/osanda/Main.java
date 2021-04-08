@@ -18,6 +18,9 @@ public class Main {
         menu();
     }
 
+    /**
+     * This is the starting point of the program
+     */
     private static void menu(){
         Scanner scanner = new Scanner(System.in);
         File file = new File("src/me/osanda/resources");
@@ -66,6 +69,10 @@ public class Main {
             }
         }
     }
+
+    /**
+     *  Change the source and sink
+     */
     private static void changeSourceAndSink(){
         Scanner scanner = new Scanner(System.in);
         boolean isInputCorrect = false;
@@ -87,6 +94,9 @@ public class Main {
         }while(!isInputCorrect);
     }
 
+    /**
+     * Calculate the max flow for a given flow graph
+     */
     private static void maxFlow(){
         //graph = new me.osanda.Graph(data,numberOfNodes);
         System.out.println("Source is : " + graph.getSource() + "  Sink is: " + graph.getSink());
@@ -103,6 +113,12 @@ public class Main {
         System.out.println( "Execution time :- " + value + " Nanoseconds");
     }
 
+    /**
+     *  This method is used to read data from a file
+     *
+     * @param filename File name of the data set
+     * @return ArrayList of List to which contain each line from the file
+     */
     private static ArrayList<List<String>> parseData(String filename){
 
         Parser parser = new Parser();
@@ -119,6 +135,9 @@ public class Main {
         return data;
     }
 
+    /**
+     * Adding a edge to the graph that is already created
+     */
     private static void addEdge(){
         int start = -1;
         int end = -1;
@@ -146,12 +165,18 @@ public class Main {
         graph.addEdge(new Edge(start,end,capacity));
     }
 
+    /**
+     * Display the the flow graph store in the adjacency list
+     */
     private static void displayFlowGraph(){
         for (int i=0;i<graph.getGraph().length;i++){
             System.out.println(i + " => " + graph.getGraph()[i]);
         }
     }
 
+    /**
+     * Delete a edge from the given grahp
+     */
     private static void deleteEdge(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the Start Node: ");
