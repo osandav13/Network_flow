@@ -9,10 +9,12 @@ import java.util.List;
  *  Name : Osanda Ginige
  *  UoW id : w1761754
  *  IIT id : 2018181
+ *  Last updated:  8/04/2021
  */
 public class Parser {
 
     /**
+     *  This method is used to read the text files in the resource package
      *
      * @param fileName Name of the text file
      * @return Each file line as string

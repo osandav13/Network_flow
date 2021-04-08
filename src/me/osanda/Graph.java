@@ -7,6 +7,7 @@ import java.util.List;
  *  Name : Osanda Ginige
  *  UoW id : w1761754
  *  IIT id : 2018181
+ *  Last updated:  8/04/2021
  */
 public class Graph {
     private ArrayList<Edge>[] graph; // Adjacency List
@@ -60,7 +61,7 @@ public class Graph {
     }
 
     /**
-     *
+     * Edge object can be added to the graph using using this method
      * @param edge Edge object that needs to be added to the graph
      */
     public void addEdge(Edge edge) {

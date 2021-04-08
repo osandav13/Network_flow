@@ -9,6 +9,7 @@ import java.util.Queue;
  *  Name : Osanda Ginige
  *  UoW id : w1761754
  *  IIT id : 2018181
+ *  Last updated:  8/04/2021
  */
 public class EdmondsKarpAlgorithm{
 
@@ -20,7 +21,8 @@ public class EdmondsKarpAlgorithm{
 
     /**
      * Max flow is calculated according to edmondsKarp
-     * algorithm
+     * algorithm which uses BFS to traverse the graph
+     * and find a the shortest path from Source to Sink
      *
      * @return Max flow of the flow graph
      */
@@ -31,38 +33,41 @@ public class EdmondsKarpAlgorithm{
         // value of zero or if the provided path by bfs didnt reach the
         // sink node.
         while(true){
-            ArrayList<Integer> displayPath = new ArrayList();
+            ArrayList<Integer> displayPath = new ArrayList<>();
             int bottleNeck = Integer.MAX_VALUE;
+
             // Bfs returns the visited edges array to visitedEdges
             Edge[] visitedEdges = BreadthFirstSearch(flowGraph.getNumberOfNodes(),flowGraph.getSource(),flowGraph.getSink());
 
             if (visitedEdges[flowGraph.getSink()] == null){break;}
             displayPath.add(flowGraph.getSink());
-            //System.out.print(flowGraph.getSink());
+
             // Below loop run to recreate the path from visitedEdges and print it
-            for (Edge edge = visitedEdges[flowGraph.getSink()];edge!=null;edge=visitedEdges[edge.getStartNode()]){
-                //System.out.print(" -> "+ edge.getStartNode());
+            for (Edge edge = visitedEdges[flowGraph.getSink()]; edge != null; edge = visitedEdges[edge.getStartNode()]){
                 displayPath.add(edge.getStartNode());
                 bottleNeck = Math.min(edge.availableFlow(),bottleNeck);
             }
+
             System.out.println("**** Current Augmenting path ****");
+            // Below for loop is not part of the algorithm
+            // It is used to print extra information about the the algorithm
             System.out.print("+ ");
-            for (int i = displayPath.size()-1;  i >= 0;i--){
+            for (int i = displayPath.size()-1; i >= 0; i--){
                 System.out.print(displayPath.get(i));
                 if (i != 0){
                     System.out.print(" -> ");
                 }else {System.out.print("\n");}
             }
 
-
             System.out.println("+ Path Flow: " + bottleNeck);
-            // If the bottle neck is not 0 then the path can be augmented
+            // If the bottleneck is not 0 then the path can be augmented
             if (bottleNeck == 0){break;}
             // Path is augmented and flow rates are adjusted to in the edges of the path
-            for (Edge edge = visitedEdges[flowGraph.getSink()];edge !=null;edge = visitedEdges[edge.getStartNode()]){
+            for (Edge edge = visitedEdges[flowGraph.getSink()]; edge != null; edge = visitedEdges[edge.getStartNode()]){
                 int adjustedFlow = edge.getCurrentFlow() + bottleNeck;
                 edge.setCurrentFlow(adjustedFlow);
             }
+
             // After each augmentation bottleneck value is added to max flow
             maxFlow +=bottleNeck;
             System.out.println("+ Current Max Flow : " + maxFlow);

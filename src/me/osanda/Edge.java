@@ -4,6 +4,7 @@ package me.osanda;
  *  Name : Osanda Ginige
  *  UoW id : w1761754
  *  IIT id : 2018181
+ *  Last updated:  8/04/2021
  */
 
 public class Edge {
@@ -27,9 +28,11 @@ public class Edge {
         this.flowCapacity = flowCapacity;
         this.currentFlow=0;
     }
+
     public int getFlowCapacity() {
         return flowCapacity;
     }
+
     public void setCurrentFlow(int currentFlow) {
         this.currentFlow = currentFlow;
     }
@@ -46,12 +49,12 @@ public class Edge {
         return endNode;
     }
 
+    public int availableFlow(){
+        return flowCapacity - currentFlow;
+    }
+
     @Override
     public String toString() {
         return "[ " + endNode + " " + flowCapacity + " ]" ;
-    }
-
-    public int availableFlow(){
-        return flowCapacity - currentFlow;
     }
 }
